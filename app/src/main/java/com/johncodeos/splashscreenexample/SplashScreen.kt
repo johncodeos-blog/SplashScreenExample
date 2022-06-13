@@ -3,8 +3,9 @@ package com.johncodeos.splashscreenexample
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
+import android.os.Looper
+import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
-import kotlinx.android.synthetic.main.splash_screen.*
 
 class SplashScreen : AppCompatActivity() {
 
@@ -12,15 +13,17 @@ class SplashScreen : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.splash_screen)
 
-        splash_logo.setImageResource(R.drawable.splash_screen_logo)
+        findViewById<ImageView>(R.id.splash_logo).setImageResource(R.drawable.splash_screen_logo)
 
-        val SPLASH_TIME_OUT = 2000
         val homeIntent = Intent(this@SplashScreen, MainActivity::class.java)
-        Handler().postDelayed({
+        Handler(Looper.getMainLooper()).postDelayed({
             //Do some stuff here, like implement deep linking
             startActivity(homeIntent)
             finish()
         }, SPLASH_TIME_OUT.toLong())
     }
 
+    companion object {
+        const val SPLASH_TIME_OUT = 2000
+    }
 }
